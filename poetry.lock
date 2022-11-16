@@ -132,6 +132,24 @@ optional = false
 python-versions = ">=3.5"
 
 [[package]]
+name = "link"
+version = "1.0.1"
+description = "Internal asynchronous Pub/Sub for Python"
+category = "main"
+optional = false
+python-versions = "^3.10"
+develop = false
+
+[package.dependencies]
+loguru = "^0.6.0"
+
+[package.source]
+type = "git"
+url = "git@github.com:swissquant/link.git"
+reference = "1.0.1"
+resolved_reference = "2594184903c037cbf22dd5f335f976770ce3ae4e"
+
+[[package]]
 name = "loguru"
 version = "0.6.0"
 description = "Python logging made (stupidly) simple"
@@ -286,7 +304,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "5d3321ca5a8260860dacc10ec57800d36e07be1cf41d89343cad5e9dc763f2bf"
+content-hash = "33bd3465808a6d75e58720c608f8800c9b8ec317b8ab4442a80dd328df32b7d5"
 
 [metadata.files]
 aiohttp = []
@@ -306,6 +324,7 @@ colorama = []
 flake8 = []
 frozenlist = []
 idna = []
+link = []
 loguru = [
     {file = "loguru-0.6.0-py3-none-any.whl", hash = "sha256:4e2414d534a2ab57573365b3e6d0234dfb1d84b68b7f3b948e6fb743860a77c3"},
     {file = "loguru-0.6.0.tar.gz", hash = "sha256:066bd06758d0a513e9836fd9c6b5a75bfb3fd36841f4b996bc60b547a309d41c"},

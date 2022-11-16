@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dydx"
-version = "0.0.1"
+version = "0.1.0"
 description = ""
 packages = [
     { include = "dydx" },
@@ -13,6 +13,7 @@ python-dotenv = "^0.21.0"
 loguru = "^0.6.0"
 aiohttp = "^3.8.3"
 websockets = "^10.3"
+link = { git = "git@github.com:swissquant/link.git", tag = "1.0.1" }
 
 [tool.poetry.dev-dependencies]
 flake8 = "^5.0.4"

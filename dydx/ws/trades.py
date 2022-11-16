@@ -1,4 +1,4 @@
-from loguru import logger
+from link import pubsub
 
 from .client import WS
 
@@ -16,8 +16,9 @@ def parse_trade(trade):
 
 
 class WS_Trades(WS):
-    def __init__(self, market: str):
+    def __init__(self, market: str, silent: bool = True):
         self.market = market
+        self.silent = silent
 
     def parse(self, trades):
         """
@@ -40,4 +41,4 @@ class WS_Trades(WS):
 
             # Parsing the trades
             for trade in trades:
-                logger.info(parse_trade(trade))
+                pubsub.send(topic="dydx:trades", message=parse_trade(trade), silent=self.silent)
