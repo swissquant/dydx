@@ -11,6 +11,9 @@ authors = ["0xMagus <rico@nemo.ventures>"]
 python = "^3.10"
 python-dotenv = "^0.21.0"
 loguru = "^0.6.0"
+web3 = "^5.31.1"
+dydx-v3-python = { git = "git@github.com:dydxprotocol/dydx-v3-python.git", rev = "dc7705e" }
+aiohttp = "^3.8.3"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^5.0.4"
