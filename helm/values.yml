@@ -1,0 +1,21 @@
+nameOverride: "APPLICATION_NAME"
+fullnameOverride: "APPLICATION_NAME"
+
+image:
+  repository: "eu.gcr.io/trading-0f1d/APPLICATION_NAME"
+  pullPolicy: IfNotPresent
+  tag: ""
+
+deployment:
+  replicaCount: 1
+
+  serviceAccountName: "APPLICATION_NAME"
+
+envs:
+  MY_ENV_VAR: "foo"
+
+  # prometheus:
+  #   enabled: true
+  #   interval: "5s"
+  #   path: "/metrics"
+  #   port: http
