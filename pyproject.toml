@@ -1,8 +1,11 @@
 [tool.poetry]
-name = "APPLICATION_NAME"
-version = "1.0.0"
+name = "dydx"
+version = "0.0.1"
 description = ""
-authors = []
+packages = [
+    { include = "dydx" },
+]
+authors = ["0xMagus <rico@nemo.ventures>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
