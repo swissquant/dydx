@@ -1,4 +1,4 @@
-def format(_account: dict) -> dict:
+def parse(_account: dict) -> dict:
     account = {
         "balance": float(_account["equity"]),
         "free_collateral": float(_account["freeCollateral"]),

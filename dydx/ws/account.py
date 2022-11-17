@@ -1,7 +1,9 @@
+from link import pubsub
+
 from .client import WS
 
 from dydx.rest import fetch_account
-from dydx.parser import format_order
+from dydx.parser import parse_order
 from dydx.client import client_priv, generate_timestamp, sign
 
 
@@ -43,8 +45,7 @@ class WS_Account(WS):
 
     def process_orders(self, orders: list):
         for order in orders:
-            order = format_order(order)
-            # TODO: send a message
+            pubsub.send(topic="dydx:orders", message=parse_order(order))
 
     async def start(self):
         # Connecting and subscribing to the WS

@@ -1,4 +1,4 @@
-def format(_order: dict) -> dict:
+def parse(_order: dict) -> dict:
     match _order:
         case {
             "id": id,
@@ -7,20 +7,20 @@ def format(_order: dict) -> dict:
             "price": price,
             "size": size,
             "remainingSize": remaining_size,
-            "type": type,
+            "type": str(type),
             "createdAt": created_at,
-            "status": status,
+            "status": str(status),
         }:
             order = {
                 "id": id,
-                "ticker": market,
+                "market": market,
                 "side": side.lower(),
                 "price": float(price),
                 "size": float(size),
                 "filled": float(size) - float(remaining_size),
-                "type": type,
+                "type": type.lower(),
                 "time": created_at,
-                "status": status,
+                "status": status.lower(),
             }
 
             return order
