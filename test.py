@@ -1,5 +1,5 @@
 import asyncio
-from dydx import WS_Account
+from dydx import WS_Order_Book
 
 
-asyncio.run(WS_Account().start())
+asyncio.run(WS_Order_Book(market="ETH-USD", silent=False).start())
