@@ -24,7 +24,7 @@ class WS:
         await self.ws.send(json.dumps(request))
         logger.info(f"Subscribed to {channel} - {args.get('id', '')}")
 
-    async def receive(self):
+    async def receive(self) -> dict:
         while True:
             # Waiting for a message
             msg = await self.ws.recv()

@@ -1,5 +1,5 @@
 import asyncio
-from dydx import WS_Trades
+from dydx import WS_Account
 
 
-asyncio.run(WS_Trades(market="BTC-USD").start())
+asyncio.run(WS_Account().start())
