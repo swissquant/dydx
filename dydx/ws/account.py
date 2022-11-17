@@ -3,7 +3,7 @@ from link import pubsub
 from .client import WS
 
 from dydx.rest import fetch_account
-from dydx.parser import parse_order
+from dydx.parser import parse_order, parse_position
 from dydx.client import client_priv, generate_timestamp, sign
 
 
@@ -39,9 +39,8 @@ class WS_Account(WS):
             pass
 
     def process_positions(self, positions: list):
-        if len(positions) > 0:
-            # TODO
-            pass
+        for position in positions:
+            pubsub.send(topic="dydx:positions", message=parse_position(position))
 
     def process_orders(self, orders: list):
         for order in orders:
