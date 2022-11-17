@@ -2,7 +2,7 @@ from datetime import datetime
 import json
 import random
 
-import dateutil.parser as dp
+# import dateutil.parser as dp
 
 
 def generate_query_path(url, params):

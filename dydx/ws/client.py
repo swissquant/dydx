@@ -8,7 +8,6 @@ class WS:
     url = "wss://api.dydx.exchange/v3/ws"
 
     async def connect(self):
-        # Connecting to the websocket
         self.ws = await websockets.connect(self.url)  # type: ignore
 
     async def subscribe(self, channel: str, **args):
@@ -22,7 +21,7 @@ class WS:
         }
         request.update(args)
         await self.ws.send(json.dumps(request))
-        logger.info(f"Subscribed to {channel} - {args.get('id', '')}")
+        logger.info(f"Subscribed to {channel}")
 
     async def receive(self) -> dict:
         while True:
