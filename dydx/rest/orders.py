@@ -51,7 +51,7 @@ async def create_order(
         limit_fee="0.1",
         expiration_epoch_seconds=expiration,
     )
-    order_signature = order_to_sign.sign(private_key_hex=client_priv.stark_private_key)
+    order_signature = order_to_sign.sign(private_key_hex=client_priv.stark_private_key["private_key"])
 
     # Creating the order
     status = await client.post(
@@ -73,9 +73,9 @@ async def create_order(
     return status
 
 
-async def create_market_order(ticker: str, size: float, price: Optional[float] = None) -> dict:
+async def create_market_order(market: str, size: float, price: Optional[float] = None) -> dict:
     """
-    Create a market order of a given size on the given ticker
+    Create a market order of a given size on the given market
     """
     # Fetching the markets
     await markets.initialise()
@@ -85,14 +85,14 @@ async def create_market_order(ticker: str, size: float, price: Optional[float] =
         if size > 0:
             price = 1000000000
         else:
-            price = float(markets.cache[ticker]["tickSize"])
+            price = float(markets.cache[market]["tickSize"])
 
     # Throttling
-    await rate_limits["market_orders"][ticker].throttle()
+    await rate_limits["market_orders"][market].throttle()
 
     # Creating the order
     status = await create_order(
-        ticker=ticker,
+        ticker=market,
         order_type="MARKET",
         size=size,
         price=round(price, 10),
@@ -102,13 +102,13 @@ async def create_market_order(ticker: str, size: float, price: Optional[float] =
     return status
 
 
-async def create_limit_order(ticker: str, size: float, price: float) -> dict:
+async def create_limit_order(market: str, size: float, price: float) -> dict:
     """
-    Create a limit order of a given size on the given ticker
+    Create a limit order of a given size on the given market
     """
-    await rate_limits["limit_orders"][ticker].throttle()
+    await rate_limits["limit_orders"][market].throttle()
     status = await create_order(
-        ticker=ticker,
+        ticker=market,
         order_type="LIMIT",
         size=size,
         price=price,

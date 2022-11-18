@@ -1,5 +1,5 @@
 import asyncio
-from dydx import WS_Order_Book
+from dydx import create_market_order
 
 
-asyncio.run(WS_Order_Book(market="ETH-USD", silent=False).start())
+asyncio.run(create_market_order(market="ETH-USD", size=-0.01))

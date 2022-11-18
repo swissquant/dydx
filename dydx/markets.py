@@ -1,6 +1,6 @@
 import asyncio
 
-from rest import fetch_markets
+from .rest import fetch_markets
 
 
 lock = asyncio.Lock()
