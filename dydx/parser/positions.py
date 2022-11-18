@@ -1,4 +1,16 @@
-def parse(_position: dict) -> dict:
+from typing import Any
+
+
+def parse_positions(_positions: list) -> dict[str, dict[str, Any]]:
+    positions = {}
+    for _position in _positions:
+        position = parse_position(_position)
+        positions[position["market"]] = position
+
+    return positions
+
+
+def parse_position(_position: dict) -> dict[str, Any]:
     match _position:
         case {"market": market, "status": "OPEN", "entryPrice": entry_price, "size": size}:
             position = {
