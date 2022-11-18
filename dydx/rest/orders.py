@@ -75,7 +75,13 @@ async def create_order(
 
 async def create_market_order(market: str, size: float, price: Optional[float] = None) -> dict:
     """
-    Create a market order of a given size on the given market
+    Creates a market order of a given size on the given market
+
+    :param market: Market on which to execute the order
+    :param size: Size of the order (negative to short, positive to long)
+    :param price: Price for the maximum slippage (do not fill if no slippage control)
+
+    :return: Summary of the order
     """
     # Fetching the markets
     await markets.initialise()
@@ -104,7 +110,13 @@ async def create_market_order(market: str, size: float, price: Optional[float] =
 
 async def create_limit_order(market: str, size: float, price: float) -> dict:
     """
-    Create a limit order of a given size on the given market
+    Creates a limit order of a given size on the given market
+
+    :param market: Market on which to execute the order
+    :param size: Size of the order (negative to short, positive to long)
+    :param price: Price of the order
+
+    :return: Summary of the order
     """
     await rate_limits["limit_orders"][market].throttle()
     status = await create_order(
