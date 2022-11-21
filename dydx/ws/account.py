@@ -8,6 +8,9 @@ from dydx.client import client_priv, generate_timestamp, sign
 
 
 class WS_Account(WS):
+    topic_orders = "dydx:orders"
+    topic_positions = "dydx:positions"
+
     async def subscribe(self):
         """
         Subscribe to the account channel
@@ -40,11 +43,11 @@ class WS_Account(WS):
 
     def process_positions(self, positions: list):
         for position in positions:
-            pubsub.send(topic="dydx:positions", message=parse_position(position))
+            pubsub.send(topic=self.topic_positions, message=parse_position(position))
 
     def process_orders(self, orders: list):
         for order in orders:
-            pubsub.send(topic="dydx:orders", message=parse_order(order))
+            pubsub.send(topic=self.topic_orders, message=parse_order(order))
 
     async def start(self):
         # Connecting and subscribing to the WS
