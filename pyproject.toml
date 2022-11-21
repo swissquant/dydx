@@ -5,7 +5,7 @@ description = ""
 packages = [
     { include = "dydx" },
 ]
-authors = ["0xMagus <rico@nemo.ventures>"]
+authors = ["SwissQuant"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
