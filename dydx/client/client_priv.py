@@ -3,7 +3,7 @@ import datetime
 from dydx3 import Client
 from dydx3.starkex.helpers import private_key_to_public_key_pair_hex
 
-from dydx.env import ETH_ADDRESS, STARK_PRIVATE_KEY, DYDX_API_KEY
+from dydx.env import DYDX_ETH_ADDRESS, DYDX_STARK_PRIVATE_KEY, DYDX_API_CREDENTIALS
 
 
 def generate_timestamp() -> str:
@@ -42,7 +42,7 @@ def derive_stark_key_from_private_key(stark_private_key):
 # Generating the private client to sign private requests to DYDX
 client_priv = Client(
     host="https://api.dydx.exchange",
-    default_ethereum_address=ETH_ADDRESS,
-    api_key_credentials=DYDX_API_KEY,
+    default_ethereum_address=DYDX_ETH_ADDRESS,
+    api_key_credentials=DYDX_API_CREDENTIALS,
 )
-client_priv.stark_private_key = derive_stark_key_from_private_key(STARK_PRIVATE_KEY)
+client_priv.stark_private_key = derive_stark_key_from_private_key(DYDX_STARK_PRIVATE_KEY)
