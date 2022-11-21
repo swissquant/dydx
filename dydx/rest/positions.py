@@ -16,3 +16,10 @@ async def fetch_positions() -> dict[str, dict[str, Any]]:
     )
 
     return parse_positions(positions)
+
+
+async def fetch_position(market: str) -> dict[str, Any]:
+    """
+    Fetch the position for a given market
+    """
+    return (await fetch_positions()).get(market, {})
