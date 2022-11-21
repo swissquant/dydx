@@ -6,6 +6,9 @@ from dydx.parser import parse_order_book
 
 
 class WS_Order_Book(WS):
+
+    topic = "dydx:order_book"
+
     def __init__(self, market: str, silent: bool = True):
         self.market = market
         self.silent = silent
@@ -40,4 +43,4 @@ class WS_Order_Book(WS):
                     self.order_book = parse_order_book(order_book)
 
             self.order_quotes()
-            pubsub.send(topic="dydx:order_book", message=self.order_book, silent=self.silent)
+            pubsub.send(topic=self.topic, message=self.order_book, silent=self.silent)
