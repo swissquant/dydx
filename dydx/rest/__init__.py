@@ -1,3 +1,4 @@
+from .executor import Executor  # NOQA: F401
 from .markets import fetch_markets  # NOQA: F401
 from .account import fetch_account  # NOQA: F401
 from .positions import fetch_positions  # NOQA: F401
