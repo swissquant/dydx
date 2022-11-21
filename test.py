@@ -1,5 +1,5 @@
 import asyncio
-from dydx import fetch_positions
+from dydx import create_limit_order
 
 
-print(asyncio.run(fetch_positions()))
+print(asyncio.run(create_limit_order(market="ETH-USD", size=0.01, price=1)))
