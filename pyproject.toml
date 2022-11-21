@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dydx"
-version = "0.6.0"
+version = "0.6.1"
 description = ""
 packages = [
     { include = "dydx" },
@@ -9,7 +9,7 @@ authors = ["0xMagus <rico@nemo.ventures>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-python-dotenv = "^0.21.0"
+python-dotenv = "^0.20.0"
 loguru = "^0.6.0"
 aiohttp = "^3.8.3"
 websockets = "^10.3"
