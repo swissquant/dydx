@@ -1,9 +1,10 @@
 [tool.poetry]
 name = "dydx"
-version = "2.3.1"
+version = "2.3.2"
 description = ""
 packages = [
     { include = "dydx" },
+    { include = "dydx3" }
 ]
 authors = ["SwissQuant"]
 
