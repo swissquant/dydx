@@ -40,7 +40,7 @@ class WS_Order_Book(WS):
                     self.update_quotes(bids, asks)
                 # First message
                 case {"bids": _, "asks": _}:
-                    self.order_book = parse_order_book(order_book)
+                    self.order_book = parse_order_book(order_book).update({"market": self.market})
 
             self.order_quotes()
             pubsub.send(topic=self.topic, message=self.order_book, silent=self.silent)
