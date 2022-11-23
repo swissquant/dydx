@@ -19,7 +19,8 @@ class Executor:
                 # if the earlier is successful
                 result = await coroutine(**kwargs)
                 return result
-            except Exception:
+            except Exception as e:
+                logger.error(e)
                 await asyncio.sleep(self.cooldown)
 
             logger.info(f"Request failed ({i+1} tentatives)")
