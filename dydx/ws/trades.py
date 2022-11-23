@@ -2,6 +2,8 @@ from link import pubsub
 
 from .client import WS
 
+from dydx.helpers import restart_on_failure
+
 
 def parse_trade(trade):
     match trade:
@@ -30,6 +32,7 @@ class WS_Trades(WS):
 
         return trades
 
+    @restart_on_failure
     async def start(self):
         # Subscribing to the trades channel
         await self.connect()

@@ -1,5 +1,23 @@
 import datetime
+from loguru import logger
 from decimal import Decimal
+from functools import wraps
+
+
+def restart_on_failure(func):
+    """
+    Restart the function on failure
+    """
+
+    @wraps(func)
+    async def run(*args):
+        while True:
+            try:
+                await func(*args)
+            except Exception as e:
+                logger.error(e)
+
+    return run
 
 
 def datetime_to_iso(dt: datetime.datetime) -> str:

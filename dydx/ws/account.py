@@ -3,6 +3,7 @@ from link import pubsub
 from .client import WS
 
 from dydx.rest import fetch_account
+from dydx.helpers import restart_on_failure
 from dydx.parser import parse_order, parse_position, parse_fill
 from dydx.client import client_priv, generate_timestamp, sign
 
@@ -86,6 +87,7 @@ class WS_Account(WS):
             # Broadcasting
             pubsub.send(topic=self.topic_orders, message=order)
 
+    @restart_on_failure
     async def start(self):
         # Connecting and subscribing to the WS
         await self.connect()

@@ -3,6 +3,7 @@ from .client import WS
 from link import pubsub
 
 from dydx.parser import parse_order_book
+from dydx.helpers import restart_on_failure
 
 
 class WS_Order_Book(WS):
@@ -25,6 +26,7 @@ class WS_Order_Book(WS):
         self.order_book["bids"] = dict(sorted(self.order_book["bids"].items(), reverse=True))
         self.order_book["asks"] = dict(sorted(self.order_book["asks"].items()))
 
+    @restart_on_failure
     async def start(self):
         await self.connect()
         await self.subscribe(channel="v3_orderbook", id=self.market)
