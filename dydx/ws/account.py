@@ -12,6 +12,9 @@ class WS_Account(WS):
     topic_orders = "dydx:orders"
     topic_positions = "dydx:positions"
 
+    def __init__(self):
+        self.order_summary: dict[str, dict] = {}
+
     async def subscribe(self):
         """
         Subscribe to the account channel
@@ -38,16 +41,50 @@ class WS_Account(WS):
         )
 
     def process_fills(self, fills: list):
-        for fill in fills:
-            pubsub.send(topic=self.topic_fills, message=parse_fill(fill))
+        for _fill in fills:
+            # Parsing the fill
+            fill = parse_fill(_fill)
+
+            # Creating the order summary if it doesn't exist
+            order_id = fill.get("order_id", "")
+            if order_id not in self.order_summary.keys():
+                self.order_summary[order_id] = {"size": 0, "price_times_size": 0, "fees": 0}
+
+            # Updating the order summary
+            self.order_summary[order_id]["size"] += fill.get("size", 0)
+            self.order_summary[order_id]["price_times_size"] += fill.get("size", 0) * fill.get("price", 0)
+            self.order_summary[order_id]["fees"] += fill.get("fee", 0)
+
+            # Broadcasting
+            pubsub.send(topic=self.topic_fills, message=fill)
 
     def process_positions(self, positions: list):
         for position in positions:
             pubsub.send(topic=self.topic_positions, message=parse_position(position))
 
     def process_orders(self, orders: list):
-        for order in orders:
-            pubsub.send(topic=self.topic_orders, message=parse_order(order))
+        for _order in orders:
+            # Parsing the order
+            order = parse_order(_order)
+
+            # Attaching the extra informations from the fills
+            if order.get("id", "") in self.order_summary.keys():
+                order_summary = self.order_summary[order.get("id", "")]
+
+                # Calculating the average price
+                if order_summary["size"] != 0:
+                    order["price_average"] = order_summary["price_times_size"] / order_summary["size"]
+                else:
+                    order["price_average"] = None
+
+                # Calculating the fees
+                order["fees"] = order_summary["fees"]
+            else:
+                order["price_average"] = None
+                order["fees"] = 0
+
+            # Broadcasting
+            pubsub.send(topic=self.topic_orders, message=order)
 
     async def start(self):
         # Connecting and subscribing to the WS
