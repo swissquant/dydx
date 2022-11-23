@@ -3,11 +3,12 @@ from link import pubsub
 from .client import WS
 
 from dydx.rest import fetch_account
-from dydx.parser import parse_order, parse_position
+from dydx.parser import parse_order, parse_position, parse_fill
 from dydx.client import client_priv, generate_timestamp, sign
 
 
 class WS_Account(WS):
+    topic_fills = "dydx:fills"
     topic_orders = "dydx:orders"
     topic_positions = "dydx:positions"
 
@@ -37,9 +38,8 @@ class WS_Account(WS):
         )
 
     def process_fills(self, fills: list):
-        if len(fills) > 0:
-            # TODO
-            pass
+        for fill in fills:
+            pubsub.send(topic=self.topic_fills, message=parse_fill(fill))
 
     def process_positions(self, positions: list):
         for position in positions:
@@ -60,5 +60,5 @@ class WS_Account(WS):
 
             # Processing the message
             self.process_fills(fills=msg.get("fills", []))
-            self.process_positions(positions=msg.get("positions", []))
             self.process_orders(orders=msg.get("orders", []))
+            self.process_positions(positions=msg.get("positions", []))
