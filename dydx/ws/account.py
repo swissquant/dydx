@@ -60,7 +60,7 @@ class WS_Account(WS):
             pubsub.send(topic=self.topic_fills, message=fill)
 
     def process_positions(self, positions: list):
-        for position in positions:
+        for position in reversed(positions):
             pubsub.send(topic=self.topic_positions, message=parse_position(position))
 
     def process_orders(self, orders: list):
