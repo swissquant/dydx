@@ -6,9 +6,15 @@ from .client_priv import client_priv, generate_timestamp, sign
 
 
 class Client_Async:
-    def __init__(self, url: str = "https://api.dydx.exchange", rate_limit: float = 0.1):
+    def __init__(
+        self,
+        url: str = "https://api.dydx.exchange",
+        rate_limit: float = 0.1,
+        client_priv=client_priv,
+    ):
         self.url = url
         self.rate_limit = rate_limit
+        self.client_priv = client_priv
 
         self.next_call = 0
         self.session = None
@@ -39,9 +45,9 @@ class Client_Async:
                 timestamp=timestamp,
                 data=data,
             ),
-            "DYDX-API-KEY": client_priv.api_key_credentials["key"],
+            "DYDX-API-KEY": self.client_priv.api_key_credentials["key"],
             "DYDX-TIMESTAMP": timestamp,
-            "DYDX-PASSPHRASE": client_priv.api_key_credentials["passphrase"],
+            "DYDX-PASSPHRASE": self.client_priv.api_key_credentials["passphrase"],
             "DYDX-ACCOUNT-NUMBER": "0",
         }
 
@@ -115,4 +121,8 @@ class Client_Async:
         return result[container]
 
 
-client = Client_Async()
+def create_async_client(client_priv=client_priv):
+    return Client_Async(client_priv=client_priv)
+
+
+client = create_async_client()
