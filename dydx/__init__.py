@@ -7,4 +7,4 @@ from .rest import (  # NOQA: F401
     fetch_positions,
     fetch_account,
 )
-from .client import create_private_client  # NOQA: F401
+from .client import create_private_client, create_async_client  # NOQA: F401
