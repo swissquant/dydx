@@ -39,10 +39,20 @@ def derive_stark_key_from_private_key(stark_private_key):
     return {"public_key": public_x, "public_key_y_coordinate": public_y, "private_key": stark_private_key}
 
 
+def create_private_client(address: str, stark_private_key: str, api_credentials: dict[str, str]):
+    client_priv = Client(
+        host="https://api.dydx.exchange",
+        default_ethereum_address=address,
+        api_key_credentials=api_credentials,
+    )
+    client_priv.stark_private_key = derive_stark_key_from_private_key(stark_private_key)
+
+    return client_priv
+
+
 # Generating the private client to sign private requests to DYDX
-client_priv = Client(
-    host="https://api.dydx.exchange",
-    default_ethereum_address=DYDX_ETH_ADDRESS,
-    api_key_credentials=DYDX_API_CREDENTIALS,
+client_priv = create_private_client(
+    address=DYDX_ETH_ADDRESS,
+    stark_private_key=DYDX_STARK_PRIVATE_KEY,
+    api_credentials=DYDX_API_CREDENTIALS,
 )
-client_priv.stark_private_key = derive_stark_key_from_private_key(DYDX_STARK_PRIVATE_KEY)

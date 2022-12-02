@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dydx"
-version = "2.6.2"
+version = "3.0.0"
 description = ""
 packages = [
     { include = "dydx" },
