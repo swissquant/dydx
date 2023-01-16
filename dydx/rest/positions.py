@@ -14,6 +14,7 @@ async def fetch_positions() -> dict[str, dict[str, Any]]:
         endpoint="v3/positions",
         container="positions",
     )
+    print(positions)
 
     return parse_positions(positions)
 

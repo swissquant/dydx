@@ -11,6 +11,7 @@ def parse_positions(_positions: list) -> dict[str, dict[str, Any]]:
 
 
 def parse_position(_position: dict) -> dict[str, Any]:
+    print(_position)
     match _position:
         case {"market": market, "status": "OPEN", "entryPrice": entry_price, "size": size}:
             position = {
